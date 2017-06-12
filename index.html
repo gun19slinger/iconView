@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IconView</title>
+    <link rel="icon" type="image/png" href="icons/favicon.png" sizes="96x96">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="preloader">
+        <span class="preloader__image"></span>
+    </div>
+
+    <h1 class="page-title">IconView</h1>
+
+    <div class="controls">
+        <button class="controls__check  button" type="button">Check/Uncheck</button>
+        <button class="controls__delete  button" type="button">Delete</button>
+    </div>
+
+    <div class="widget"></div>
+
+    <div class="options">
+        <div class="options__column">
+            <h3 class="options__title">Add new item</h3>
+            <form class="createItem" action="#" method="post">
+                <label class="createItem__name">Name:
+                    <input class="input" type="text">
+                </label>
+                <label class="createItem__image">Image:
+                    <input class="input" type="hidden">
+                </label>
+                <div class="icons"></div>
+                <button class="createItem__submit  button" type="submit">Create</button>
+            </form>
+        </div>
+        <div class="options__column">
+            <h3 class="options__title">Set measurements</h3>
+            <form class="setSize" action="#" method="post">
+                <label class="setSize__field">
+                    <span class="setSize__field-caption">Set widget width</span>
+                    <input class="input" type="text" name="contWidth">
+                </label>
+                <label class="setSize__field">
+                    <span class="setSize__field-caption">Set widget height</span>
+                    <input class="input" type="text" name="contHeight">
+                </label>
+                <label class="setSize__field">
+                    <span class="setSize__field-caption">Set icon width</span>
+                    <input class="input" type="text" name="itemWidth">
+                </label>
+                <label class="setSize__field">
+                    <span class="setSize__field-caption">Set icon height</span>
+                    <input class="input" type="text" name="itemHeight">
+                </label>
+                <button class="setSize__submit  button" type="submit">Set</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/isIE.js"></script>
+    <script src="js/preloader.js"></script>
+    <script src="js/IconView.js"></script>
+    <script src="js/icons.js"></script>
+    <script src="js/IconMaker.js"></script>
+    <script src="js/Sizer.js"></script>
+    <script>
+        var widget = new IconView({
+            container: document.querySelector('.widget'),
+            checkButton: document.querySelector('.controls__check'),
+            deleteButton: document.querySelector('.controls__delete'),
+            measurements : {
+                contWidth: 400,
+                contHeight: 200,
+                itemWidth: 80,
+                itemHeight: 60
+            },
+            items: [
+                {
+                    id: 'item_1',
+                    text: 'linux',
+                    img: 'icons/Linux.PNG'
+                },
+                {
+                    id: 'item_2',
+                    text: 'android',
+                    img: 'icons/Android.PNG'
+                },
+                {
+                    id: 'item_3',
+                    text: 'linked-in',
+                    img: 'icons/Linked-In.PNG'
+                },
+                {
+                    id: 'item_4',
+                    text: 'google+',
+                    img: 'icons/Google+.PNG'
+                },
+                {
+                    id: 'item_15',
+                    text: 'apple',
+                    img: 'icons/Apple.PNG'
+                },
+                {
+                    id: 'item_6',
+                    text: 'coding',
+                    img: 'icons/Coding.PNG'
+                },
+                {
+                    id: 'item_7',
+                    text: 'wikipedia',
+                    img: 'icons/Wikipedia.PNG'
+                },
+                {
+                    id: 'item_8',
+                    text: 'command',
+                    img: 'icons/Command.PNG'
+                }
+            ]
+        });
+        var iconMaker = new IconMaker({
+            form: document.querySelector('.createItem'),
+            iconsContainer: document.querySelector('.icons'),
+            icons: icons,
+            addNewIcon: function (icon) {
+                widget.addItem(icon);
+            }
+        });
+        var sizer = new Sizer({
+            form: document.querySelector('.setSize'),
+            resize: function (measurements) {
+                widget.setMeasurements(measurements);
+            }
+        });
+    </script>
+</body>
+</html>
